@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-import '../../core/style/app_theme.dart';
+import '../../settings_provider.dart';
 import 'hadeth_view.dart';
 
 class HadethDetailsVeiw extends StatefulWidget {
@@ -20,12 +21,13 @@ class _HadethDetailsVeiwState extends State<HadethDetailsVeiw> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<SettingProvider>(context);
     var args = ModalRoute.of(context)!.settings.arguments as HadethContent;
 
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(AppTheme.themeMode != ThemeMode.dark
+              image: AssetImage(!provider.isDark()
                   ? "assets/images/background_light.png"
                   : "assets/images/background_dark.png"),
               fit: BoxFit.fill),
@@ -49,7 +51,9 @@ class _HadethDetailsVeiwState extends State<HadethDetailsVeiw> {
             ),
             padding: EdgeInsets.only(top: 50),
             decoration: BoxDecoration(
-                color: Color(0xFF141A2E).withOpacity(0.8),
+                color: !provider.isDark()
+                    ? Color(0xFFF8F8F8).withOpacity(0.8)
+                    : Color(0xFF141A2E).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(25)),
             child: SingleChildScrollView(
               child: Padding(
@@ -65,13 +69,17 @@ class _HadethDetailsVeiwState extends State<HadethDetailsVeiw> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Divider(
                         thickness: 1.5,
-                        color: theme.canvasColor,
+                        color: provider.isDark()
+                            ? Colors.black
+                            : theme.canvasColor,
                       ),
                     ),
                     Text(
                       args.content,
                       style: theme.textTheme.bodyMedium!.copyWith(
-                        color: const Color(0xFFFACC1D),
+                        color: !provider.isDark()
+                            ? Colors.black
+                            : theme.canvasColor,
                       ),
                       textDirection: TextDirection.rtl,
                     ),

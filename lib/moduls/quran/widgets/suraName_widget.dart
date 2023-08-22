@@ -4,7 +4,6 @@ import 'package:islami_app/moduls/quran/sura_details_view.dart';
 class SuraNameWidget extends StatelessWidget {
   final String SuraName;
   final int SuraNumber;
-
   const SuraNameWidget(
       {super.key, required this.SuraName, required this.SuraNumber});
 

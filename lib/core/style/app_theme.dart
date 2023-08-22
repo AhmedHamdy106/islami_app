@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  static Color lightPrimary = const Color(0xFFB7935F);
+  static Color darkPrimary = const Color(0xFF141A2E);
   static ThemeMode themeMode = ThemeMode.dark;
   static ThemeData lightTheme = ThemeData(
     primaryColor: const Color(0xFFB7935F),
@@ -8,6 +10,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.black),
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
@@ -53,13 +56,22 @@ class AppTheme {
       bodyMedium: TextStyle(
           fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
     ),
+    bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: Color(0xFFB7935F),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ))),
   );
+
   static ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xFF141A2E),
     canvasColor: const Color(0xFFFACC1D),
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.white),
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
@@ -105,5 +117,12 @@ class AppTheme {
       bodyMedium: TextStyle(
           fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
     ),
+    bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: Color(0xFF141A2E),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ))),
   );
 }

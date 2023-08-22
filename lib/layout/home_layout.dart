@@ -5,8 +5,8 @@ import 'package:islami_app/moduls/quran/quran_view.dart';
 import 'package:islami_app/moduls/radio/radio_view.dart';
 import 'package:islami_app/moduls/sebha/sebha_view.dart';
 import 'package:islami_app/moduls/settings/settings_view.dart';
-
-import '../core/style/app_theme.dart';
+import 'package:islami_app/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = "home_layout";
@@ -28,10 +28,11 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<SettingProvider>(context);
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppTheme.themeMode != ThemeMode.dark
+            image: AssetImage(!provider.isDark()
                 ? "assets/images/background_light.png"
                 : "assets/images/background_dark.png"),
             fit: BoxFit.fill,

@@ -4,11 +4,14 @@ import 'package:islami_app/layout/home_layout.dart';
 import 'package:islami_app/moduls/hadeth/hadeth_details.dart';
 import 'package:islami_app/moduls/quran/sura_details_view.dart';
 import 'package:islami_app/moduls/splash/splash_view.dart';
+import 'package:islami_app/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'core/style/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => SettingProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,15 +20,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SettingProvider>(context);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: provider.themeMode,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale("en"),
+      locale: Locale(provider.CurrentLanguage),
       initialRoute: SplashView.routeName,
       routes: {
         SplashView.routeName: (context) => const SplashView(),

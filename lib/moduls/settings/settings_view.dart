@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/moduls/settings/widgets/language_bottom_sheet_settings.dart';
+import 'package:islami_app/moduls/settings/widgets/theme_bottom_sheet_settings.dart';
+import 'package:provider/provider.dart';
+
+import '../../settings_provider.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -11,6 +16,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<SettingProvider>(context);
 
     return Center(
       child: Container(
@@ -25,7 +31,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             InkWell(
               onTap: () {
-                showLanguageBottomSheet();
+                showLanguageBottomSheet(context);
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20),
@@ -38,13 +44,10 @@ class _SettingsViewState extends State<SettingsView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "English",
+                      provider.CurrentLanguage == "ar" ? "عربي" : "English",
                       style: theme.textTheme.bodyMedium,
                     ),
-                    Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.arrow_drop_down_sharp, color: theme.canvasColor),
                   ],
                 ),
               ),
@@ -57,7 +60,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             InkWell(
               onTap: () {
-                showThemeBottomSheet();
+                showThemeBottomSheet(context);
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20),
@@ -70,13 +73,10 @@ class _SettingsViewState extends State<SettingsView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Dark",
+                      provider.isDark() ? "Dark" : "Light",
                       style: theme.textTheme.bodyMedium,
                     ),
-                    Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.arrow_drop_down_sharp, color: theme.canvasColor),
                   ],
                 ),
               ),
@@ -87,76 +87,18 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  void showLanguageBottomSheet() {
+  void showLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Enlish",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "عربي",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Icon(Icons.check),
-              ],
-            ),
-          ],
-        ),
-      ),
+      builder: (context) => languageBottomSheetSettings(),
     );
   }
 
-  void showThemeBottomSheet() {
+  void showThemeBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Light",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Dark",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      builder: (context) => themeBottonSheetSettings(),
     );
   }
 }
+

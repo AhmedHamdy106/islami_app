@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../settings_provider.dart';
 
 class VirsesWidget extends StatelessWidget {
   String content;
@@ -9,6 +12,7 @@ class VirsesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<SettingProvider>(context);
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(8),
@@ -16,7 +20,7 @@ class VirsesWidget extends StatelessWidget {
           textDirection: TextDirection.rtl,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyMedium!.copyWith(
-            color: const Color(0xFFFACC1D),
+            color: !provider.isDark() ? Colors.black : theme.canvasColor,
           )),
     );
   }

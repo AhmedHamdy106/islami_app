@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../core/style/app_theme.dart';
+import '../../settings_provider.dart';
 
 class SebhaView extends StatefulWidget {
   const SebhaView({super.key});
@@ -24,6 +25,7 @@ class _SebhaViewState extends State<SebhaView> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<SettingProvider>(context);
 
     return Container(
       height: MediaQuery.of(context).size.height,
@@ -36,7 +38,7 @@ class _SebhaViewState extends State<SebhaView> {
             alignment: Alignment.topCenter,
             children: [
               Image.asset(
-                AppTheme.themeMode != ThemeMode.dark
+                !provider.isDark()
                     ? 'assets/images/headSebhaLight.png'
                     : "assets/images/head of seb7a.png",
                 height: 100,
@@ -48,16 +50,16 @@ class _SebhaViewState extends State<SebhaView> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      turns += 1 / 1;
+                      turns += 1 / 33;
                       counter += 1;
                       remembrances;
                     });
                   },
                   child: AnimatedRotation(
                       turns: turns,
-                      duration: Duration(seconds: 1),
+                      duration: Duration(milliseconds: 30),
                       child: Image.asset(
-                        AppTheme.themeMode != ThemeMode.dark
+                        !provider.isDark()
                             ? 'assets/images/bodySebhaLight.png'
                             : "assets/images/body of seb7a.png",
                         height: 200,
@@ -92,7 +94,7 @@ class _SebhaViewState extends State<SebhaView> {
               onPressed: () {
                 setState(() {
                   CounterSabha();
-                  turns += 1 / 1;
+                  turns += 1 / 33;
                 });
               },
               style: ButtonStyle(
