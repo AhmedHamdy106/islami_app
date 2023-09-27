@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.light;
   String CurrentLanguage = "en";
 
-  selectArabicLanguage() {
+  selectArabicLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("lang", "ar");
     CurrentLanguage = "ar";
     notifyListeners();
   }
 
-  selectEnglishLanguage() {
+  selectEnglishLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("lang", "en");
     CurrentLanguage = "en";
     notifyListeners();
   }
 
-  enableDarkTheme() {
+  enableDarkTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("theme", !isDark() ? true : false);
     themeMode = ThemeMode.dark;
     notifyListeners();
   }
 
-  enableLightTheme() {
+  enableLightTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("theme", isDark() ? true : false);
     themeMode = ThemeMode.light;
     notifyListeners();
   }
@@ -28,13 +37,28 @@ class SettingProvider extends ChangeNotifier {
     return themeMode == ThemeMode.dark;
   }
 
-  String selectBackground() {
-    if (isDark()) {
+  // String selectBackground() {
+  //   if (isDark()) {
+  //     notifyListeners();
+  //     return "assets/images/background_dark.png";
+  //   } else {
+  //     notifyListeners();
+  //     return "assets/images/background_light.png";
+  //   }
+  // }
+  getLang() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    CurrentLanguage = prefs.getString("lang")!;
+    notifyListeners();
+  }
+
+  Future<void> getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isDark = prefs.getBool("theme");
+
+    if (isDark != null) {
+      themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
       notifyListeners();
-      return "assets/images/background_dark.png";
-    } else {
-      notifyListeners();
-      return "assets/images/background_light.png";
     }
   }
 }

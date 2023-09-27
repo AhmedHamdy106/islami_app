@@ -5,9 +5,10 @@
   "tasbeh": "تسبيح",
   "radio": "راديو",
   "setting": "الإعدادات",
-  "Language": "اللغه",
+  "language": "اللغه",
   "Dark": "ليلي",
   "Light": "نهاري",
   "English": "إنجليزي",
-  "Arabic": "عربي"
+  "Arabic": "عربي",
+  "theme": "الوضع"
 }

@@ -9,9 +9,15 @@ import 'package:provider/provider.dart';
 
 import 'core/style/app_theme.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => SettingProvider(), child: const MyApp()));
+void main() async {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SettingProvider()
+        ..getLang()
+        ..getTheme(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
